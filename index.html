@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*Cree una función asíncrona getUsers(names), que obtenga una matriz de inicios de sesión de GitHub, obtenga los usuarios de GitHub y devuelva una matriz de usuarios de GitHub.*/
+
+
+        function getUsers(names) {
+            const usuarios = [] //declaro en una variable un array vacio el que se ira llenando con las solicitudes de fetch
+            fetch(`https://api.github.com/users/users/${name[0]}`) //copio url de la api dentro de un fetch y comillas invertidas e interpolo el nombre de github que quiero ir a buscar a la api (en este caso hice un array con users)
+                .then(datos => datos.json) //con then si la respuesta es exitosa la transformo en formato json, la transcribo
+                .then(usuario => usuarios.push(usuario)) //otro then para llenar el array vacio de usuarios con los usuarios que pedire a la api
+
+            fetch(`https://api.github.com/users/users/${name[1]}`)
+                .then(datos => datos.json)
+                .then(usuario => usuarios.push(usuario))
+
+            fetch(`https://api.github.com/users/users/${name[2]}`)
+                .then(datos => datos.json)
+                .then(usuario => usuarios.push(usuario))
+
+            return usuarios
+
+        }
+        const users = getUsers(['denisselm', 'mbensan', 'monikareyes'])
+        console.log('users', users)
+
+        //el mismo consumo con fetch pero ahora con un for para iterar en los usuarios,dejo un array vacio dentro de la funcion, con fetch busco los datos del usuario, voy llenando el array vacio con el resultado haciendo un push de estas busquedas y devuelvo ese array con return
+
+        function getUsers(names) {
+            const usuarios = []
+            for (let name of names) {
+                fetch(`https://api.github.com/users/users/${name}`)
+                    .then(datos => datos.json)
+                    .then(usuario => usuarios.push(usuario))
+            }
+
+            console.log('usuario de github:', usuarios);
+            return usuarios
+
+        }
+        getUsers(['denisselm', 'mbensan', 'monikareyes'])
+    </script>
+</body>
+
+</html>
